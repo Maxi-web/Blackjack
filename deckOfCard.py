@@ -95,8 +95,11 @@ class Player:
                 print(self.score())
                 print("Sticking with "+str(self.score())+" I see!")
 
+        elif ans.lower() == "debug":
+            print("hope you found the bug")
         else:
             print("ummmm there is a third option?")
+            self.hitOrStick(deck)
 
     def DealerFinish(self,deck,player):
          if player.score() > 21:
