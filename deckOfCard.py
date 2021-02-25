@@ -51,7 +51,8 @@ class Deck:
     def drawCard(self):
         return self.cards.pop()
 
-#Creates the Player class.
+#Creates the Player class. player has name and hand, can 'hit or 'stick', showHand,
+#show one card, show score, DealerFinish method
 class Player:
     def __init__(self, name):
         self.name = name
@@ -75,14 +76,14 @@ class Player:
             s += card.value
         return s
 
-    def hitOrStick(self,deck):
+    def hit_stick(self,deck):
         ans = input("Hit or Stick:")
         print(ans)
         if ans.lower() == "hit":
             self.hit(deck)
             if self.score() <= 21:
                 print(self.score())
-                self.hitOrStick(deck)
+                self.hit_stick(deck)
             else:
                 print(self.score())
                 print("Bust")
@@ -90,7 +91,7 @@ class Player:
             if self.score() < 14:
                 print(self.score())
                 print(str(self.score())+" is too low to stick, you must hit atleast 14!")
-                self.hitOrStick(deck)
+                self.hit_stick(deck)
             else:
                 print(self.score())
                 print("Sticking with "+str(self.score())+" I see!")
@@ -99,7 +100,7 @@ class Player:
             print("hope you found the bug")
         else:
             print("ummmm there is a third option?")
-            self.hitOrStick(deck)
+            self.hit_stick(deck)
 
     def DealerFinish(self,deck,player):
          if player.score() > 21:
@@ -114,25 +115,32 @@ class Player:
              self.showHand()
              print(self.score())
              print("Dealer Bust!")
+             playAgain()
          else:
              self.showHand()
              print(self.score())
              winner(player, self)
+
+
 def playAgain():
      ans = input("Play again? Y or N: ")
      print(ans)
      if ans.lower() == "y":
-         play(player,self)
+         play("Max", "Dealer")
      elif ans.lower() == "n":
          print("See Ya")
      else:
          print("Sorry what did you say? Did you want to")
          playAgain()
+
+
 def winner(player, dealer):
     if (player.score() > dealer.score()) and (player.score() <= 21):
         print("Player wins")
+        playAgain()
     else:
         print('The house always wins')
+        playAgain()
 
 def play(player, dealer):
     deck = Deck()
@@ -146,7 +154,7 @@ def play(player, dealer):
     p.showHand()
     cpu.showHand_Dealer()
     print(p.score())
-    p.hitOrStick(deck)
+    p.hit_stick(deck)
     cpu.DealerFinish(deck,p)
 
 
